@@ -145,8 +145,6 @@ As springfox swagger is currently not available for spring webflux, we are descr
         "status": "ACTIVATED"
     }
     ```
-- **Error Response**:  
-    **Code**: 404 Not found - If the customer is not found or don't have any numbers.  
 
 ## Test data
 This is the test numbers used by the kata DAO:
