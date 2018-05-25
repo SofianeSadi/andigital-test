@@ -9,6 +9,9 @@ import java.util.Objects;
 public class CustomerEntity implements Serializable {
     private Long id;
 
+    public CustomerEntity() {
+    }
+
     public CustomerEntity(Long id) {
         this.id = id;
     }

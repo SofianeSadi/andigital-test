@@ -11,6 +11,9 @@ public class NumberEntity {
     private CustomerEntity customerEntity;
     private NumberStatus status;
 
+    public NumberEntity() {
+    }
+
     /**
      *
      * @param id The number ID
