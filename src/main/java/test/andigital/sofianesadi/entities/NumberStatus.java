@@ -1,3 +1,3 @@
 package test.andigital.sofianesadi.entities;
 
-public enum NumberStatus {ACTIVATED, DESACTIVATED}
+public enum NumberStatus {ACTIVATED, DEACTIVATED}

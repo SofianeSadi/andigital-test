@@ -24,15 +24,15 @@ public class KataNumberRepositoryImpl implements INumberRepository {
      * 9 numbers: 3 per customer
      */
     private static List<NumberEntity> numberDataSource = Arrays.asList(
-            new NumberEntity(1L, "07492525820", new CustomerEntity(1L), NumberStatus.DESACTIVATED),
-            new NumberEntity(2L, "07492525821", new CustomerEntity(2L), NumberStatus.DESACTIVATED),
-            new NumberEntity(3L, "07492525822", new CustomerEntity(3L), NumberStatus.DESACTIVATED),
-            new NumberEntity(4L, "07492525823", new CustomerEntity(1L), NumberStatus.DESACTIVATED),
-            new NumberEntity(5L, "07492525824", new CustomerEntity(2L), NumberStatus.DESACTIVATED),
-            new NumberEntity(6L, "07492525825", new CustomerEntity(3L), NumberStatus.DESACTIVATED),
-            new NumberEntity(7L, "07492525826", new CustomerEntity(1L), NumberStatus.DESACTIVATED),
-            new NumberEntity(8L, "07492525827", new CustomerEntity(2L), NumberStatus.DESACTIVATED),
-            new NumberEntity(9L, "07492525828", new CustomerEntity(3L), NumberStatus.DESACTIVATED)
+            new NumberEntity(1L, "07492525820", new CustomerEntity(1L), NumberStatus.DEACTIVATED),
+            new NumberEntity(2L, "07492525821", new CustomerEntity(2L), NumberStatus.DEACTIVATED),
+            new NumberEntity(3L, "07492525822", new CustomerEntity(3L), NumberStatus.DEACTIVATED),
+            new NumberEntity(4L, "07492525823", new CustomerEntity(1L), NumberStatus.DEACTIVATED),
+            new NumberEntity(5L, "07492525824", new CustomerEntity(2L), NumberStatus.DEACTIVATED),
+            new NumberEntity(6L, "07492525825", new CustomerEntity(3L), NumberStatus.DEACTIVATED),
+            new NumberEntity(7L, "07492525826", new CustomerEntity(1L), NumberStatus.DEACTIVATED),
+            new NumberEntity(8L, "07492525827", new CustomerEntity(2L), NumberStatus.DEACTIVATED),
+            new NumberEntity(9L, "07492525828", new CustomerEntity(3L), NumberStatus.DEACTIVATED)
     );
 
     /**

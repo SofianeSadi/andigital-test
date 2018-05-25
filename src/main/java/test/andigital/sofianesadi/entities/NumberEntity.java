@@ -19,7 +19,7 @@ public class NumberEntity {
      * @param id The number ID
      * @param ddi The number DDI (full number string)
      * @param customerEntity  The customer possessing the number
-     * @param status Is the number ACTIVATED or DESACTIVATED ?
+     * @param status Is the number ACTIVATED or DEACTIVATED ?
      */
     public NumberEntity(Long id, String ddi, CustomerEntity customerEntity, NumberStatus status) {
         this.id = id;
