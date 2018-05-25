@@ -1,0 +1,74 @@
+{
+	"info": {
+		"name": "test_andigital_sofianesadi",
+		"_postman_id": "230c6ca5-1af7-54e1-04a9-e5d03cc1a771",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/numbers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/numbers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"numbers"
+					]
+				},
+				"description": "Get all numbers"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/customers/[id]/numbers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/customers/[id]/numbers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"[id]",
+						"numbers"
+					]
+				},
+				"description": "Get all numbers for the given customers (change the [id] parameters)"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/numbers/[id]/activate",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/numbers/1/activate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"numbers",
+						"1",
+						"activate"
+					]
+				},
+				"description": "Activate the given number (change the [id] parameters)"
+			},
+			"response": []
+		}
+	]
+}

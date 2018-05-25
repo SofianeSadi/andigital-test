@@ -16,10 +16,36 @@ We need 3 APIs:
 todo
 
 ## Test the application
-todo
+Using postman: Import the collection (documentation/test_andigital_sofianesadi.postman_collection.json) into postman 
+to test the 3 endpoints.  
+Using curl:
+
+- Get all phone numbers:
+```curl
+curl -X GET \
+  http://localhost:8080/numbers \
+  -H 'Cache-Control: no-cache' \
+  -H 'Postman-Token: 2f846c86-bc41-252f-a294-bef2e0ba38e2'
+```
+
+- Get all phone numbers for a given customer:
+```curl
+curl -X GET \
+  http://localhost:8080/customers/1/numbers \
+  -H 'Cache-Control: no-cache' \
+  -H 'Postman-Token: 0dcf9504-f919-7024-a735-dc883e25c02d'
+```
+
+- Activate a phone number:
+```curl
+curl -X GET \
+  http://localhost:8080/customers/1/numbers \
+  -H 'Cache-Control: no-cache' \
+  -H 'Postman-Token: 0dcf9504-f919-7024-a735-dc883e25c02d'
+```
 
 ## Tech stack
-We are going to use a TDD and implement a reactive implementation.  
+TDD project based on a reactive implementation.  
 - **Web framework**: Spring webflux  
 - **Reactive library**: Project reactor  
 - **Test dependencies**: Spring boot starter test - JUnit jupiter  
@@ -34,8 +60,26 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    todo: example of response
     ```javascript
+    [
+        {
+            "id": 1,
+            "ddi": "07492525820",
+            "customerEntity": {
+                "id": 1
+            },
+            "status": "ACTIVATED"
+        },
+        {
+            "id": 2,
+            "ddi": "07492525821",
+            "customerEntity": {
+                "id": 2
+            },
+            "status": "DESACTIVATED"
+        },
+        ...
+    ]
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If no numbers found.  
@@ -48,8 +92,15 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    todo: example of response
     ```javascript
+   {
+       "id": 1,
+       "ddi": "07492525820",
+       "customerEntity": {
+           "id": 1
+       },
+       "status": "ACTIVATED"
+   }
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If number not found for the given id.
@@ -63,8 +114,15 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     **Code**: 200  
     **Content**:   
-    todo: example of response
     ```javascript
+    {
+        "id": 1,
+        "ddi": "07492525820",
+        "customerEntity": {
+            "id": 1
+        },
+        "status": "ACTIVATED"
+    }
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If the customer is not found or don't have any numbers.  
