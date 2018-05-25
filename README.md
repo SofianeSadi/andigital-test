@@ -13,7 +13,11 @@ We need 3 APIs:
 - activate a phone number  
 
 ## Run the application
-todo
+```commandline
+git clone https://github.com/SofianeSadiPro/andigital-test.git
+./gradlew clean build
+java -jar ./build/libs/sofianesadi-0.0.1-SNAPSHOT.jar
+```
 
 ## Test the application
 Using postman: Import the collection (documentation/test_andigital_sofianesadi.postman_collection.json) into postman 
@@ -51,10 +55,10 @@ TDD project based on a reactive implementation.
 - **Test dependencies**: Spring boot starter test - JUnit jupiter  
 - **Build tool**: Gradle  
 
-### APIs
+## APIs
 As springfox swagger is currently not available for spring webflux, we are describing the API via the readme.
-#### Numbers API
-##### Find all numbers (scenario "get all phone numbers")
+### Numbers API
+#### Find all numbers (scenario "get all phone numbers")
 - **URL**: /api/numbers
 - **Method**: GET
 - **Success Response**:   
@@ -84,7 +88,7 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Error Response**:  
     **Code**: 404 Not found - If no numbers found.  
 
-##### Activate a number (scenario: activate a phone number)
+#### Activate a number (scenario: activate a phone number)
 - **URL**: /api/numbers/{id}/activate
 - **Method**: PATCH
 - **URL Params**: 
@@ -105,8 +109,8 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Error Response**:  
     **Code**: 404 Not found - If number not found for the given id.
     
-#### Customers API
-##### Find all numbers for a given customer (scenario: get all phone numbers)
+### Customers API
+#### Find all numbers for a given customer (scenario: get all phone numbers)
 - **URL**: /api/customers/{id}/numbers
 - **Method**: GET
 - **URL Params**: 
@@ -127,7 +131,7 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Error Response**:  
     **Code**: 404 Not found - If the customer is not found or don't have any numbers.  
 
-### Class diagram
+## Class diagram
 Note: Following the specifications, we are not going to use any database, the DAO will be using a static list. 
 
 ![alt text](documentation/class-diagram.png "Class diagram")  
