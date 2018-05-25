@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class NumberControllerTest {
+public class CustomerControllerTest {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private WebTestClient webTestClient;
@@ -23,27 +23,12 @@ public class NumberControllerTest {
     private INumberRepository kataNumberRepositoryImpl;
 
     @Test
-    public void testGetAllNumbers() {
-        webTestClient.get().uri("/numbers")
+    public void testGetNumbers() {
+        webTestClient.get().uri("/customers/1/numbers")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                .expectBodyList(NumberEntity.class)
-                .hasSize(9);
-    }
-
-
-    @Test
-    public void testActivateNumber() {
-        webTestClient.patch()
-                .uri("/numbers/{id}/activate", Collections.singletonMap("id", 1L))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                .expectBody()
-                .jsonPath("$.status").isEqualTo("ACTIVATED");
+                .expectBodyList(NumberEntity.class).hasSize(3);
     }
 }

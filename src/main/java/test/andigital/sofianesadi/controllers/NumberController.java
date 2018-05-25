@@ -13,25 +13,25 @@ import test.andigital.sofianesadi.entities.NumberStatus;
 @RestController
 @RequestMapping("/numbers")
 public class NumberController {
-    private final INumberRepository kataNumberRepository;
+    private final INumberRepository kataNumberRepositoryImpl;
 
     @Autowired
-    public NumberController(INumberRepository kataNumberRepository) {
-        this.kataNumberRepository = kataNumberRepository;
+    public NumberController(INumberRepository kataNumberRepositoryImpl) {
+        this.kataNumberRepositoryImpl = kataNumberRepositoryImpl;
     }
 
     @GetMapping
     public Flux<NumberEntity> getAllNumbers() {
-        return kataNumberRepository.findAll();
+        return kataNumberRepositoryImpl.findAll();
     }
 
     @PatchMapping("{id}/activate")
     public Mono<ResponseEntity<NumberEntity>> activateNumber(@PathVariable(value = "id") Long id) {
-        return kataNumberRepository
+        return kataNumberRepositoryImpl
                 .findById(id)
                 .flatMap(foundNumber -> {
                     foundNumber.setStatus(NumberStatus.ACTIVATED);
-                    return kataNumberRepository.save(foundNumber);
+                    return kataNumberRepositoryImpl.save(foundNumber);
                 })
                 .map(updatedNumber -> new ResponseEntity<>(updatedNumber, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
