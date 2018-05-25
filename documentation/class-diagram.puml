@@ -30,6 +30,7 @@ package daos {
         +findAll(): Flux<NumberEntity>
         +findByCustomerId(Long customerId): Flux<Number>
         +findById(Long Id): Mono<NumberEntity>
+        +save(NumberEntity numberEntity): Mono<NumberEntity>
     }
 
     package impl {
