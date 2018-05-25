@@ -1,0 +1,60 @@
+@startuml
+package entities {
+    class CustomerEntity {
+        +getId(): Long
+        +setId(Long idToSet)
+    }
+
+    class NumberEntity {
+        +getId(): Long
+        +setId(Long idToSet): Long
+        +getDdi(): String
+        +setDdi(String ddiToSet): String
+        +getStatus(): NumberStatus
+        +setStatus(NumberStatus statusToSet)
+        +getCustomer(): CustomerEntity
+        +setCustomer(CustomerEntity customerToSet):
+    }
+
+    enum NumberStatus {
+        DISABLED
+        ENABLED
+    }
+
+    NumberEntity -left-> "1" NumberStatus
+    CustomerEntity "1" *-- "many" NumberEntity
+}
+
+package daos {
+    interface INumberRepository {
+        +findAll(): Flux<NumberEntity>
+        +findByCustomerId(Long customerId): Flux<Number>
+        +findById(Long Id): Mono<NumberEntity>
+    }
+
+    package impl {
+        class KataNumberRepositoryImpl {
+            -{static} List<NumberEntity> numberEntitiesDataSource
+        }
+    }
+
+    KataNumberRepositoryImpl ..|> INumberRepository: implements
+}
+
+package controllers {
+    class NumberController {
+        +getAllNumbers(): Flux<NumberEntity>
+        +activateNumber(Long id): Mono<ResponseEntity<NumberEntity>>
+    }
+    class CustomerController {
+        +getNumbers(Long id): Flux<NumberEntity>
+    }
+}
+
+NumberController .up.> KataNumberRepositoryImpl: create
+CustomerController .up.> KataNumberRepositoryImpl: create
+
+CustomerController ..> INumberRepository
+NumberController ..> INumberRepository
+
+@enduml

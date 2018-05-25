@@ -10,7 +10,7 @@ customer : N phone numbers) and we will provide an API to modify them.
 We need 3 APIs:  
 - get all phone numbers
 - get all phone numbers of a single customer
-- activate a phone number
+- activate a phone number  
 
 ## Run the application
 todo
@@ -19,10 +19,11 @@ todo
 todo
 
 ## Tech stack
-Web framework: Spring webflux  
-Reactive library: Project reactor  
-Test dependencies: Spring boot starter test - JUnit jupiter    
-Build tool: Gradle  
+We are going to use a TDD and implement a reactive implementation.  
+- **Web framework**: Spring webflux  
+- **Reactive library**: Project reactor  
+- **Test dependencies**: Spring boot starter test - JUnit jupiter  
+- **Build tool**: Gradle  
 
 ### APIs
 As springfox swagger is currently not available for spring webflux, we are describing the API via the readme.
@@ -33,8 +34,8 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    ```javascript
     todo: example of response
+    ```javascript
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If no numbers found.  
@@ -47,8 +48,8 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    ```javascript
     todo: example of response
+    ```javascript
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If number not found for the given id.
@@ -62,11 +63,13 @@ As springfox swagger is currently not available for spring webflux, we are descr
 - **Success Response**:   
     **Code**: 200  
     **Content**:   
-    ```javascript
     todo: example of response
+    ```javascript
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If the customer is not found or don't have any numbers.  
 
 ### Class diagram
-todo
+Note: Following the specifications, we are not going to use any database, the DAO will be using a static list. 
+
+![alt text](documentation/class-diagram.png "Class diagram")  
