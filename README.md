@@ -2,18 +2,23 @@
 
 Table of Contents
 =================
-* [About the project](#about-the-project)
-* [Tech stack](#tech-stack)
-* [Run the application](#run-the-application)
-* [Test the application](#test-the-application)
-* [APIs](#apis)
-   * [Numbers API](#numbers-api)
-      * [Find all numbers (scenario "get all phone numbers")](#find-all-numbers-scenario-get-all-phone-numbers)
-      * [Activate a number (scenario: activate a phone number)](#activate-a-number-scenario-activate-a-phone-number)
-   * [Customers API](#customers-api)
-      * [Find all numbers for a given customer (scenario: get all phone numbers)](#find-all-numbers-for-a-given-customer-scenario-get-all-phone-numbers)
-* [Test data](#test-data)
-* [UML class diagram](#class-diagram)
+  * [About the project](#about-the-project)
+  * [Tech stack](#tech-stack)
+  * [Run the application](#run-the-application)
+  * [API documentation](#api-documentation)
+     * [Numbers API](#numbers-api)
+        * [Find all numbers (scenario: get all phone numbers)](#find-all-numbers-scenario-get-all-phone-numbers)
+        * [Find number via id](#find-number-via-id)
+        * [Update a number (scenario: activate a phone number)](#update-a-number-scenario-activate-a-phone-number)
+     * [Customers API](#customers-api)
+        * [Find all customers](#find-all-customers)
+        * [Find customer via ID](#find-customer-via-id)
+        * [Find all numbers for a given customer (scenario: get all phone numbers of a single customer)](#find-all-numbers-for-a-given-customer-scenario-get-all-phone-numbers-of-a-single-customer)
+  * [Test the application](#test-the-application)
+     * [Number API](#number-api)
+     * [Customer API](#customer-api)
+  * [Test data](#test-data)
+  * [Class diagram](#class-diagram)
 
 ## About the project
 In the exercise we pretend that we are working for a telecom provider.  
@@ -28,7 +33,7 @@ We need 3 APIs:
 - activate a phone number  
 
 ## Tech stack
-TDD project based on a reactive implementation.  
+TDD project based on a functional and reactive implementation.  
 - **Web framework**: Spring webflux  
 - **Reactive library**: Project reactor  
 - **Test dependencies**: Spring boot starter test - JUnit jupiter  
@@ -43,45 +48,16 @@ cd andigital-test
 java -jar ./build/libs/sofianesadi-0.0.1-SNAPSHOT.jar
 ```
 
-## Test the application
-Using postman: Import the collection (documentation/test_andigital_sofianesadi.postman_collection.json) into postman 
-to test the 3 endpoints.  
-Using curl:
-
-- Get all phone numbers:
-```curl
-curl -X GET \
-  http://localhost:8080/numbers \
-  -H 'Cache-Control: no-cache' \
-  -H 'Postman-Token: 2f846c86-bc41-252f-a294-bef2e0ba38e2'
-```
-
-- Get all phone numbers for a given customer:
-```curl
-curl -X GET \
-  http://localhost:8080/customers/1/numbers \
-  -H 'Cache-Control: no-cache' \
-  -H 'Postman-Token: 0dcf9504-f919-7024-a735-dc883e25c02d'
-```
-
-- Activate a phone number:
-```curl
-curl -X GET \
-  http://localhost:8080/customers/1/numbers \
-  -H 'Cache-Control: no-cache' \
-  -H 'Postman-Token: 0dcf9504-f919-7024-a735-dc883e25c02d'
-```
-
-## APIs
+## API documentation
 As springfox swagger is currently not available for spring webflux, we are describing the API via the readme.
 ### Numbers API
-#### Find all numbers (scenario "get all phone numbers")
+#### Find all numbers (scenario: get all phone numbers)
 - **URL**: /api/numbers
 - **Method**: GET
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    ```javascript
+    ```json
     [
         {
             "id": 1,
@@ -98,27 +74,56 @@ As springfox swagger is currently not available for spring webflux, we are descr
                 "id": 2
             },
             "status": "DEACTIVATED"
-        },
-        ...
+        }
     ]
     ```
 - **Error Response**:  
     **Code**: 404 Not found - If no numbers found.  
 
-#### Activate a number (scenario: activate a phone number)
-- **URL**: /api/numbers/{id}/activate
-- **Method**: PATCH
-- **URL Params**: 
-    * *id*: Number ID (Long)
+#### Find number via id
+- **URL**: /api/numbers/{id}
+- **Method**: GET
 - **Success Response**:   
     - **Code**: 200  
     - **Content**:   
-    ```javascript
-   {
-       "id": 1,
+    ```json
+        {
+            "id": "1",
+            "ddi": "07492525820",
+            "customerEntity": {
+                "id": "1"
+            },
+            "status": "ACTIVATED"
+        }
+    ```
+- **Error Response**:  
+    **Code**: 404 Not found - If no numbers found.  
+    
+#### Update a number (scenario: activate a phone number)
+- **URL**: /api/numbers/{id}
+- **Method**: PUT
+- **URL Params**: 
+    * *id*: Number ID
+- **Body**: 
+    ```json
+    {
+       "id": "1",
        "ddi": "07492525820",
        "customerEntity": {
-           "id": 1
+           "id": "1"
+       },
+       "status": "ACTIVATED"
+   }
+    ```
+- **Success Response**:   
+    - **Code**: 200  
+    - **Content**:   
+    ```json
+   {
+       "id": "1",
+       "ddi": "07492525820",
+       "customerEntity": {
+           "id": "1"
        },
        "status": "ACTIVATED"
    }
@@ -127,24 +132,115 @@ As springfox swagger is currently not available for spring webflux, we are descr
     **Code**: 404 Not found - If number not found for the given id.
     
 ### Customers API
-#### Find all numbers for a given customer (scenario: get all phone numbers)
-- **URL**: /api/customers/{id}/numbers
+#### Find all customers
+- **URL**: /api/customers
 - **Method**: GET
-- **URL Params**: 
-    * *id*: Customer ID (Long)
 - **Success Response**:   
     **Code**: 200  
     **Content**:   
-    ```javascript
-    {
-        "id": 1,
-        "ddi": "07492525820",
-        "customerEntity": {
-            "id": 1
+    ```json
+    [
+        {
+            "id": "1"
         },
-        "status": "ACTIVATED"
-    }
+        {
+            "id": "2"
+        },
+        {
+            "id": "3"
+        },
+        {
+            "id": "4"
+        }
+    ]
     ```
+#### Find customer via ID
+- **URL**: /api/customers/1
+- **Method**: GET
+- **Success Response**:   
+    **Code**: 200  
+    **Content**:   
+    ```json
+        {
+            "id": "1"
+        }
+    ```
+    
+#### Find all numbers for a given customer (scenario: get all phone numbers of a single customer)
+- **URL**: /api/customers/{id}/numbers
+- **Method**: GET
+- **URL Params**: 
+    * *id*: Customer ID
+- **Success Response**:   
+    **Code**: 200  
+    **Content**:   
+    ```json
+    [
+        {
+            "id": "1",
+            "ddi": "07492525820",
+            "customerEntity": {
+                "id": "1"
+            },
+            "status": "ACTIVATED"
+        },
+          {
+            "id": "3",
+            "ddi": "07492525823",
+            "customerEntity": {
+                "id": "1"
+            },
+            "status": "ACTIVATED"
+        }
+    ]
+    ```
+
+## Test the application
+Using postman: An export of the collection is available in "documentation/test_andigital_sofianesadi.postman_collection.json".   
+
+Using curl:
+### Number API
+- Get all phone numbers:
+```commandline
+curl -X GET http://localhost:8080/numbers 
+```
+
+- Get a phone numbers via id:
+```commandline
+curl -X GET http://localhost:8080/numbers/1
+```
+
+- Update a phone numbers (set status to activated):
+```commandline
+curl -X PUT \
+  http://localhost:8080/numbers/2 \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "id": 2,
+    "ddi": "07492525822",
+    "customerEntity": {
+        "id": 1
+    },
+    "status": "ACTIVATED"
+}'
+```
+
+### Customer API
+
+- Get all customers:
+```commandline
+curl -X GET http://localhost:8080/customers 
+```
+
+- Get customer via id:
+```commandline
+curl -X GET http://localhost:8080/customers/1
+```
+
+- Get all phone numbers for a given customer:
+```commandline
+curl -X GET http://localhost:8080/customers/1/numbers 
+```
 
 ## Test data
 This is the test numbers used by the kata DAO:
@@ -159,7 +255,7 @@ This is the test numbers used by the kata DAO:
 | 6 | "07492525825"| 3 | DEACTIVATED|
 | 7 | "07492525826"| 1 | DEACTIVATED|
 | 8 | "07492525827"| 2 | DEACTIVATED|
-| 9 | "07492525828"| 3 | DEACTIVATED|
+| 9 | "07492525828"| 4 | DEACTIVATED|
 
 After an application restart the test data are reset.
 

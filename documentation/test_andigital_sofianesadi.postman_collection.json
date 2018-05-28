@@ -7,6 +7,69 @@
 	},
 	"item": [
 		{
+			"name": "localhost:8080/customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				},
+				"description": "Get all customers."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/customers/[id]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/customers/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"1"
+					]
+				},
+				"description": "Get a customer via it's id."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/customers/[id]/numbers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/customers/1/numbers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"1",
+						"numbers"
+					]
+				},
+				"description": "Get all numbers for the given customers id."
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:8080/numbers",
 			"request": {
 				"method": "GET",
@@ -27,43 +90,49 @@
 			"response": []
 		},
 		{
-			"name": "localhost:8080/customers/[id]/numbers",
+			"name": "localhost:8080/numbers/[id]",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "localhost:8080/customers/[id]/numbers",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"customers",
-						"[id]",
-						"numbers"
-					]
-				},
-				"description": "Get all numbers for the given customers (change the [id] parameters)"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8080/numbers/[id]/activate",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "localhost:8080/numbers/1/activate",
+					"raw": "localhost:8080/numbers/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"numbers",
-						"1",
-						"activate"
+						"1"
+					]
+				},
+				"description": "Get a specific number via it's id."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/numbers/[id]/activate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"ddi\": \"07492525822\",\n    \"customerEntity\": {\n        \"id\": 1\n    },\n    \"status\": \"ACTIVATED\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/numbers/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"numbers",
+						"2"
 					]
 				},
 				"description": "Activate the given number (change the [id] parameters)"
