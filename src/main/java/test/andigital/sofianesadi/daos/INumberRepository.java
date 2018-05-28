@@ -19,19 +19,12 @@ public interface INumberRepository {
      * @param id The number ID
      * @return List of numbers if matches, empty list otherwise.
      */
-    Mono<NumberEntity> findById(Long id);
+    Mono<NumberEntity> findById(String id);
 
     /**
      * Find by customer id
      * @param customerId The customer ID
      * @return List of numbers for the given customer id if found, empty list otherwise.
      */
-    Flux<NumberEntity> findByCustomerId(Long customerId);
-
-    /**
-     * Save a number entity
-     * @param numberEntity Number entity to save
-     * @return Persisted NumberEntity.
-     */
-    Mono<NumberEntity> save(NumberEntity numberEntity);
+    Flux<NumberEntity> findByCustomerId(String customerId);
 }

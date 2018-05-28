@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class NumberControllerTest {
+class NumberControllerTest {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private WebTestClient webTestClient;
@@ -23,7 +23,7 @@ public class NumberControllerTest {
     private INumberRepository kataNumberRepositoryImpl;
 
     @Test
-    public void testGetAllNumbers() {
+    void testGetAllNumbers() {
         webTestClient.get().uri("/numbers")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
@@ -35,7 +35,7 @@ public class NumberControllerTest {
 
 
     @Test
-    public void testActivateNumber() {
+    void testActivateNumber() {
         webTestClient.patch()
                 .uri("/numbers/{id}/activate", Collections.singletonMap("id", 1L))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)

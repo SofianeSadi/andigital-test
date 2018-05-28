@@ -26,12 +26,12 @@ public class NumberController {
     }
 
     @PatchMapping("{id}/activate")
-    public Mono<ResponseEntity<NumberEntity>> activateNumber(@PathVariable(value = "id") Long id) {
+    public Mono<ResponseEntity<NumberEntity>> activateNumber(@PathVariable(value = "id") String id) {
         return kataNumberRepositoryImpl
                 .findById(id)
                 .flatMap(foundNumber -> {
                     foundNumber.setStatus(NumberStatus.ACTIVATED);
-                    return kataNumberRepositoryImpl.save(foundNumber);
+                    return Mono.justOrEmpty(foundNumber);
                 })
                 .map(updatedNumber -> new ResponseEntity<>(updatedNumber, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));

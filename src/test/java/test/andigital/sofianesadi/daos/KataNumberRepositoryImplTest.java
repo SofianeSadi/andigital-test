@@ -1,25 +1,29 @@
 package test.andigital.sofianesadi.daos;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Flux;
-import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
+/**
+ * Kata number repository implementation test
+ */
+@SuppressWarnings("UnassignedFluxMonoInstance")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class KataNumberRepositoryImplTest {
+class KataNumberRepositoryImplTest {
     @Autowired
-    private INumberRepository kataNumberRepositoryImpl;
+    private INumberRepository numberRepository;
 
     /**
      * When findAll(): we expect to retrieve 9 numbers
      */
     @Test
-    public void findAll() {
-        StepVerifier.create(kataNumberRepositoryImpl.findAll())
+    void findAll() {
+        StepVerifier.create(numberRepository.findAll())
                     .expectNextCount(9)
                     .verifyComplete();
     }
@@ -28,9 +32,9 @@ public class KataNumberRepositoryImplTest {
      * When findById with corrects number id: we expect to retrieve the number
      */
     @Test
-    public void findById() {
-        Flux.just(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L).map(id ->
-                StepVerifier.create(kataNumberRepositoryImpl.findById(id))
+    void findById() {
+        Flux.just("1", "2", "3", "4", "5", "6", "7", "8", "9").map(id ->
+                StepVerifier.create(numberRepository.findById(id))
                         .expectNextCount(1)
                         .verifyComplete());
     }
@@ -39,28 +43,28 @@ public class KataNumberRepositoryImplTest {
      * When findById with an invalid id we expect nothing more than a complete
      */
     @Test
-    public void findByIdNotExist() {
-        StepVerifier.create(kataNumberRepositoryImpl.findById(10L)).verifyComplete();
+    void findByIdNotExist() {
+        StepVerifier.create(numberRepository.findById("100")).verifyComplete();
     }
 
     /**
      * When findByCustomerId with valids ids we expect 3 numbers per customers
      */
     @Test
-    public void findByCustomerId() {
-        Flux.just(1L, 2L, 3L).map(id ->
-                StepVerifier.create(kataNumberRepositoryImpl.findByCustomerId(id))
+    void findByCustomerId() {
+    Flux.just("1", "2", "3").map(id ->
+                StepVerifier.create(numberRepository.findByCustomerId(id))
                         .expectNextCount(3)
                         .verifyComplete());
     }
 
     /**
-     * When findByCUstomerId with invalid id we expect  numbers.
+     * When findByCustomerId with invalid id we expect 0 numbers.
      */
     @Test
-    public void findByCustomerIdNotExist() {
-        Flux.just(4L).map(id ->
-                StepVerifier.create(kataNumberRepositoryImpl.findByCustomerId(id))
+    void findByCustomerIdNotExist() {
+        Flux.just("4").map(id ->
+                StepVerifier.create(numberRepository.findByCustomerId(id))
                         .expectNextCount(0)
                         .verifyComplete());
     }

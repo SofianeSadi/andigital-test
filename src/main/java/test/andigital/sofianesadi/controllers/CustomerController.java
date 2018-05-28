@@ -26,7 +26,7 @@ public class CustomerController {
      * @return List of found number + 200 if found. 404 otherwise.
      */
     @GetMapping("{id}/numbers")
-    public Flux<NumberEntity> getNumbers(@PathVariable(value = "id") Long id) {
+    public Flux<NumberEntity> getNumbers(@PathVariable(value = "id") String id) {
         return kataNumberRepositoryImpl.findByCustomerId(id);
     }
 }

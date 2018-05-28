@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CustomerControllerTest {
+class CustomerControllerTest {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private WebTestClient webTestClient;
@@ -23,7 +23,7 @@ public class CustomerControllerTest {
     private INumberRepository kataNumberRepositoryImpl;
 
     @Test
-    public void testGetNumbers() {
+    void testGetNumbers() {
         webTestClient.get().uri("/customers/1/numbers")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()

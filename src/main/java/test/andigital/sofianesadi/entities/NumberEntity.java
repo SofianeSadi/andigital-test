@@ -6,7 +6,7 @@ import java.util.Objects;
  * Number entity
  */
 public class NumberEntity {
-    private Long id;
+    private String id;
     private String ddi;
     private CustomerEntity customerEntity;
     private NumberStatus status;
@@ -21,18 +21,18 @@ public class NumberEntity {
      * @param customerEntity  The customer possessing the number
      * @param status Is the number ACTIVATED or DEACTIVATED ?
      */
-    public NumberEntity(Long id, String ddi, CustomerEntity customerEntity, NumberStatus status) {
+    public NumberEntity(String id, String ddi, CustomerEntity customerEntity, NumberStatus status) {
         this.id = id;
         this.ddi = ddi;
         this.customerEntity = customerEntity;
         this.status = status;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
