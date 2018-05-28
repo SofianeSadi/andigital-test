@@ -1,19 +1,19 @@
 @startuml
 package entities {
     class CustomerEntity {
-        +getId(): Long
-        +setId(Long idToSet)
+        +getId(): String
+        +setId(String idToSet)
     }
 
     class NumberEntity {
-        +getId(): Long
-        +setId(Long idToSet): Long
+        +getId(): String
+        +setId(String idToSet)
         +getDdi(): String
-        +setDdi(String ddiToSet): String
+        +setDdi(String ddiToSet)
         +getStatus(): NumberStatus
         +setStatus(NumberStatus statusToSet)
         +getCustomer(): CustomerEntity
-        +setCustomer(CustomerEntity customerToSet):
+        +setCustomer(CustomerEntity customerToSet)
     }
 
     enum NumberStatus {
@@ -30,32 +30,44 @@ package daos {
         +findAll(): Flux<NumberEntity>
         +findByCustomerId(Long customerId): Flux<Number>
         +findById(Long Id): Mono<NumberEntity>
-        +save(NumberEntity numberEntity): Mono<NumberEntity>
     }
+
+   interface ICustomerRepository {
+        +findAll(): Flux<CustomerEntity>
+        +findById(): Mono<CustomerEntity>
+   }
 
     package impl {
         class KataNumberRepositoryImpl {
             -{static} List<NumberEntity> numberEntitiesDataSource
         }
+        class KataCustomerRepositoryImpl {
+            -{static} List<CustomerEntity> customerEntitiesDataSource
+        }
     }
 
     KataNumberRepositoryImpl ..|> INumberRepository: implements
+    KataCustomerRepositoryImpl ..|> ICustomerRepository: implements
 }
 
 package controllers {
-    class NumberController {
-        +getAllNumbers(): Flux<NumberEntity>
-        +activateNumber(Long id): Mono<ResponseEntity<NumberEntity>>
+    class NumberHandler {
+        +listNumbers(ServerRequest request): Mono<ServerResponse>
+        +getNumber(ServerRequest request): Mono<ServerResponse>
+        +updateNumber(ServerRequest request): Mono<ServerResponse>
     }
-    class CustomerController {
-        +getNumbers(Long id): Flux<NumberEntity>
+
+    class CustomerHandler {
+        +listCustomers(ServerRequest request): Mono<ServerResponse>
+        +getCustomer(ServerRequest request): Mono<ServerResponse>
+        +getNumbers(ServerRequest request): Mono<ServerResponse>
     }
 }
 
-NumberController .up.> KataNumberRepositoryImpl: create
-CustomerController .up.> KataNumberRepositoryImpl: create
+NumberHandler .up.> KataNumberRepositoryImpl: create
+CustomerHandler .up.> KataNumberRepositoryImpl: create
 
-CustomerController ..> INumberRepository
-NumberController ..> INumberRepository
+CustomerHandler ..> INumberRepository
+NumberHandler ..> INumberRepository
 
 @enduml
