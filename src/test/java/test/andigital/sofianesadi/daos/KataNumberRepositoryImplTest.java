@@ -44,7 +44,9 @@ class KataNumberRepositoryImplTest {
      */
     @Test
     void findByIdNotExist() {
-        StepVerifier.create(numberRepository.findById("100")).verifyComplete();
+        StepVerifier.create(numberRepository.findById("100"))
+                .expectNextCount(0)
+                .verifyComplete();
     }
 
     /**

@@ -50,7 +50,7 @@ package daos {
     KataCustomerRepositoryImpl ..|> ICustomerRepository: implements
 }
 
-package controllers {
+package handlers {
     class NumberHandler {
         +listNumbers(ServerRequest request): Mono<ServerResponse>
         +getNumber(ServerRequest request): Mono<ServerResponse>
@@ -66,8 +66,10 @@ package controllers {
 
 NumberHandler .up.> KataNumberRepositoryImpl: create
 CustomerHandler .up.> KataNumberRepositoryImpl: create
+CustomerHandler .up.> KataCustomerRepositoryImpl: create
 
 CustomerHandler ..> INumberRepository
+CustomerHandler ..> ICustomerRepository
 NumberHandler ..> INumberRepository
 
 @enduml

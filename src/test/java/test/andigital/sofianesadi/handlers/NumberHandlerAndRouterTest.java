@@ -15,7 +15,7 @@ import test.andigital.sofianesadi.entities.NumberStatus;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class NumberHandlerTest {
+class NumberHandlerAndRouterTest {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private WebTestClient webTestClient;
@@ -53,6 +53,19 @@ class NumberHandlerTest {
                 .expectStatus().isNotFound(); // Expect a 404
     }
 
+
+    /**
+     * Test get a non existing number.
+     */
+    @Test
+    void testGetNumberNotFound() {
+        // Test customer 1: 3 numbers
+        webTestClient.get()
+                .uri("/numbers/100")
+                .exchange()
+                .expectStatus().isNotFound(); // Expect a 404
+    }
+
     @Test
     void testUpdateNumber() {
         NumberEntity numberEntity = new NumberEntity("1", null, null, NumberStatus.ACTIVATED);
@@ -69,6 +82,11 @@ class NumberHandlerTest {
                 .jsonPath("$.id").isEqualTo("1")
                 .jsonPath("$.status").isEqualTo("ACTIVATED");
 
+    }
+
+    @Test
+    void testUpdateNumberNonExisting() {
+        NumberEntity numberEntity = new NumberEntity("1", null, null, NumberStatus.ACTIVATED);
         // Invalid id with good entity
         webTestClient.put().uri("/numbers/100")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -76,7 +94,10 @@ class NumberHandlerTest {
                 .body(Mono.just(numberEntity), NumberEntity.class)
                 .exchange()
                 .expectStatus().isNotFound();
+    }
 
+    @Test
+    void testUpdateNumberWrongBody() {
         // Valid id with no entity
         webTestClient.put().uri("/numbers/1")
                 .contentType(MediaType.APPLICATION_JSON)

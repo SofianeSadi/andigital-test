@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 @Repository
 public class KataCustomerRepositoryImpl implements ICustomerRepository {
-    static List<CustomerEntity> customerDataSource = Arrays.asList(
+    static List<CustomerEntity> CUSTOMERS_DATA_SOURCE = Arrays.asList(
             new CustomerEntity("1"),
             new CustomerEntity("2"),
             new CustomerEntity("3"),
@@ -29,7 +29,7 @@ public class KataCustomerRepositoryImpl implements ICustomerRepository {
     @Override
     public Mono<CustomerEntity> findById(String customerId) {
         return Mono.justOrEmpty(
-                customerDataSource
+                CUSTOMERS_DATA_SOURCE
                         .parallelStream()
                         .filter(customer -> customer.getId().equals(customerId))
                         .findFirst()
@@ -42,7 +42,7 @@ public class KataCustomerRepositoryImpl implements ICustomerRepository {
     @Override
     public Flux<CustomerEntity> findAll() {
         return Flux.fromIterable(
-                customerDataSource
+                CUSTOMERS_DATA_SOURCE
                         .parallelStream()
                         .collect(Collectors.toList())
         );

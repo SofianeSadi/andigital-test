@@ -7,12 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import test.andigital.sofianesadi.daos.INumberRepository;
 import test.andigital.sofianesadi.entities.NumberEntity;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerHandlerTest {
+class CustomerHandlerAndRouterTest {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private WebTestClient webTestClient;
@@ -66,5 +65,17 @@ class CustomerHandlerTest {
                 .expectStatus().isOk() // Expect a 200
                 .expectHeader().contentType(MediaType.APPLICATION_JSON) // Body type should be APPLICATION_JSON
                 .expectBodyList(NumberEntity.class).hasSize(1); // Should return 1 customers
+    }
+
+    /**
+     * Test get all numbers for the asked customer.
+     */
+    @Test
+    void testGetNumbersNotFound() {
+        // Test customer 1: 3 numbers
+        webTestClient.get()
+                .uri("/customers/10/numbers")
+                .exchange()
+                .expectStatus().isNotFound(); // Expect a 404
     }
 }

@@ -1,4 +1,4 @@
-package test.andigital.sofianesadi.controllers;
+package test.andigital.sofianesadi.handlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 /**
- * This handler responsibility concern the number management.
+ * This handler responsibility concern the numbers management.
+ *  List all numbers
+ *  Get number by ID.
+ *  Update a number.
  */
 @Component
 public class NumberHandler {

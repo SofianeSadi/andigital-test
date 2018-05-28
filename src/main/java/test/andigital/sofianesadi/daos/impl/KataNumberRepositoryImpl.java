@@ -24,16 +24,16 @@ public class KataNumberRepositoryImpl implements INumberRepository {
      *  2 numbers for customer 3
      *  1 number for customer 4
      */
-    private static List<NumberEntity> numberDataSource = Arrays.asList(
-            new NumberEntity("1", "07492525820", KataCustomerRepositoryImpl.customerDataSource.get(0), NumberStatus.DEACTIVATED),
-            new NumberEntity("2", "07492525821", KataCustomerRepositoryImpl.customerDataSource.get(1), NumberStatus.DEACTIVATED),
-            new NumberEntity("3", "07492525822", KataCustomerRepositoryImpl.customerDataSource.get(2), NumberStatus.DEACTIVATED),
-            new NumberEntity("4", "07492525823", KataCustomerRepositoryImpl.customerDataSource.get(0), NumberStatus.DEACTIVATED),
-            new NumberEntity("5", "07492525824", KataCustomerRepositoryImpl.customerDataSource.get(1), NumberStatus.DEACTIVATED),
-            new NumberEntity("6", "07492525825", KataCustomerRepositoryImpl.customerDataSource.get(2), NumberStatus.DEACTIVATED),
-            new NumberEntity("7", "07492525826", KataCustomerRepositoryImpl.customerDataSource.get(0), NumberStatus.DEACTIVATED),
-            new NumberEntity("8", "07492525827", KataCustomerRepositoryImpl.customerDataSource.get(1), NumberStatus.DEACTIVATED),
-            new NumberEntity("9", "07492525828", KataCustomerRepositoryImpl.customerDataSource.get(3), NumberStatus.DEACTIVATED)
+    private static List<NumberEntity> NUMBERS_DATA_SOURCE = Arrays.asList(
+            new NumberEntity("1", "07492525820", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(0), NumberStatus.DEACTIVATED),
+            new NumberEntity("2", "07492525821", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(1), NumberStatus.DEACTIVATED),
+            new NumberEntity("3", "07492525822", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(2), NumberStatus.DEACTIVATED),
+            new NumberEntity("4", "07492525823", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(0), NumberStatus.DEACTIVATED),
+            new NumberEntity("5", "07492525824", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(1), NumberStatus.DEACTIVATED),
+            new NumberEntity("6", "07492525825", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(2), NumberStatus.DEACTIVATED),
+            new NumberEntity("7", "07492525826", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(0), NumberStatus.DEACTIVATED),
+            new NumberEntity("8", "07492525827", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(1), NumberStatus.DEACTIVATED),
+            new NumberEntity("9", "07492525828", KataCustomerRepositoryImpl.CUSTOMERS_DATA_SOURCE.get(3), NumberStatus.DEACTIVATED)
     );
 
     /**
@@ -41,7 +41,7 @@ public class KataNumberRepositoryImpl implements INumberRepository {
      */
     @Override
     public Flux<NumberEntity> findAll() {
-        return Flux.fromIterable(numberDataSource);
+        return Flux.fromIterable(NUMBERS_DATA_SOURCE);
     }
 
     /**
@@ -50,7 +50,7 @@ public class KataNumberRepositoryImpl implements INumberRepository {
     @Override
     public Mono<NumberEntity> findById(String id) {
         return Mono.justOrEmpty(
-                numberDataSource
+                NUMBERS_DATA_SOURCE
                         .parallelStream()
                         .filter(number -> number.getId().equals(id))
                         .findFirst()
@@ -63,7 +63,7 @@ public class KataNumberRepositoryImpl implements INumberRepository {
     @Override
     public Flux<NumberEntity> findByCustomerId(String customerId) {
         return Flux.fromIterable(
-                numberDataSource
+                NUMBERS_DATA_SOURCE
                         .parallelStream()
                         .filter(number -> number.getCustomerEntity().getId().equals(customerId))
                         .collect(Collectors.toList())

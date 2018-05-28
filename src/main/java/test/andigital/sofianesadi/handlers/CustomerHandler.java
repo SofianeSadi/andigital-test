@@ -1,4 +1,4 @@
-package test.andigital.sofianesadi.controllers;
+package test.andigital.sofianesadi.handlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 /**
- * Handler responsibility: Customers
+ * Handler responsibility: Customers management
  *  List all customers
  *  Get all numbers for the specified customer.
  */
